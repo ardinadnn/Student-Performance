@@ -77,29 +77,32 @@ def add_card(content):
         """
 
 def create_pie_chart(column, title):
-    value_counts = kelas[column].value_counts()
-    if len(value_counts) > 1:
-        names = [False, True]
-    else:
-        if value_counts.index==1:
-            names = [True]
-        elif value_counts.index==0:
-            names= [False]
-    colors = ['white', '#393939']
-    fig = px.pie(
-        values=value_counts,
-        names=names,
-        title=title,
-        color_discrete_sequence=colors)
-    fig.update_layout(
-        height=200,
-        margin=dict(l=0, r=10, t=70, b=10),
-        title=dict(
-            x=0,
-            font=dict(size=15),
-        ),
-    )
-    st.plotly_chart(fig)
+    try:
+        value_counts = kelas[column].value_counts()
+        if len(value_counts) > 1:
+            names = [False, True]
+        else:
+            if value_counts.index==1:
+                names = [True]
+            elif value_counts.index==0:
+                names= [False]
+        colors = ['white', '#393939']
+        fig = px.pie(
+            values=value_counts,
+            names=names,
+            title=title,
+            color_discrete_sequence=colors)
+        fig.update_layout(
+            height=200,
+            margin=dict(l=0, r=10, t=70, b=10),
+            title=dict(
+                x=0,
+                font=dict(size=15),
+            ),
+        )
+        st.plotly_chart(fig)
+    except UnboundLocalError as e:
+        st.write("No data available to display.")
 
 if add_selectbox == "Dashboard":
     col1, col2, col3, col4 = st.columns(4)
