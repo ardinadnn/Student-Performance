@@ -428,23 +428,27 @@ if add_selectbox == "Dashboard":
     with container:
         colA, colB = st.columns([4,1])
         with colA:
-            fig = px.histogram(
-                kelas,
-                    x='Age_at_enrollment',
-                    title='Age at Enrollment Distribution',
-                    color_discrete_sequence=colors
-                )
-            
-            fig.update_layout(
-            title=dict(
-                text='Age at Enrollment Distribution',
-                font=dict(
-                    size=24
+            try:
+                fig = px.histogram(
+                    kelas,
+                        x='Age_at_enrollment',
+                        title='Age at Enrollment Distribution',
+                        color_discrete_sequence=colors
+                    )
+                
+                fig.update_layout(
+                title=dict(
+                    text='Age at Enrollment Distribution',
+                    font=dict(
+                        size=24
+                        )
                     )
                 )
-            )
 
-            st.plotly_chart(fig)
+                st.plotly_chart(fig)
+
+            except ValueError as e:
+                st.write("No data available to display.")
 
         with colB:
             max_age = (kelas['Age_at_enrollment'].max())
